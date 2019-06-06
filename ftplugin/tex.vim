@@ -1,6 +1,10 @@
+let g:mzview_autobuild = get(g:, 'mzview_autobuild', 0)
+
 augroup autobuild
     autocmd! * <buffer>
-    autocmd CursorHold,CursorHoldI <buffer> call mzview#rebuild_pdf()
+    if g:mzview_autobuild
+        autocmd CursorHold,CursorHoldI <buffer> call mzview#rebuild_pdf()
+    endif
 augroup END
 
 command! SynctexForward call mzview#synctex_forward()
