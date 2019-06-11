@@ -10,7 +10,7 @@ endfunction
 function mzview#spawn_viewer(pdf_file, force)
     if !exists("g:pdf_viewer") || a:force
         if empty(a:pdf_file)
-            let g:pdf_file = FindPDF()
+            let g:pdf_file = mzview#find_pdf()
         else
             let g:pdf_file = a:pdf_file
         endif
