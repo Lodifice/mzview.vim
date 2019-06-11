@@ -21,8 +21,7 @@ function mzview#spawn_viewer(pdf_file, force)
 endfunction
 
 function mzview#update_viewer()
-    " TODO configuration option for SIGHUP or relying on automatic refresh
-    if exists("g:pdf_viewer")
+    if exists("g:pdf_viewer") && g:mzview_pdfrefresh
         call job_stop(g:pdf_viewer, "hup")
     endif
 endfunction

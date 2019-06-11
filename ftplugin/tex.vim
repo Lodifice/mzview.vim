@@ -1,5 +1,6 @@
 let g:mzview_autobuild = get(g:, 'mzview_autobuild', 0)
 let g:mzview_buildonwrite = get(g:, 'mzview_buildonwrite', 0)
+let g:mzview_pdfrefresh = get(g:, 'mzview_pdfrefresh', 0)
 
 augroup autobuild
     autocmd! * <buffer>
