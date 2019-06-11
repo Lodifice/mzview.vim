@@ -32,7 +32,7 @@ function mzview#rebuild_pdf(always)
     endif
     let g:building = 1
     execute "update"
-    call job_start("make", {"exit_cb": "mzview#handle_rebuild", "in_io": "null", "out_io": "null", "err_io": "null"})
+    call job_start(eval(g:mzview_buildcmd), {"exit_cb": "mzview#handle_rebuild", "in_io": "null", "out_io": "null", "err_io": "null"})
 endfunction
 
 function mzview#handle_rebuild(job, status)

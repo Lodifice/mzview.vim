@@ -2,6 +2,11 @@ let g:mzview_autobuild = get(g:, 'mzview_autobuild', 0)
 let g:mzview_buildonwrite = get(g:, 'mzview_buildonwrite', 0)
 let g:mzview_pdfrefresh = get(g:, 'mzview_pdfrefresh', 0)
 
+" TODO make this more sophisticated, i.e. search for Makefile, if not found,
+" try latexmk, etc.
+" TODO support using the internal :make and makeprg
+let g:mzview_buildcmd = get(g:, 'mzview_buildcmd', '"latexmk -pdf " . substitute(g:pdf_file, "\.pdf", ".tex", "")')
+
 augroup autobuild
     autocmd! * <buffer>
     if g:mzview_autobuild
