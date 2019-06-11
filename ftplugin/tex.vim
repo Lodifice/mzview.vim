@@ -28,4 +28,6 @@ command! UpdateViewer call mzview#update_viewer()
 
 setlocal updatetime=1000
 
-map <localleader>s :SynctexForward<cr>
+noremap <Plug>mzview_SynctexForward :SynctexForward<cr>
+noremap <Plug>mzview_RebuildPDF :RebuildPDF<cr>
+noremap <Plug>mzview_UpdateViewer :UpdateViewer<cr>
