@@ -27,8 +27,8 @@ function mzview#update_viewer()
     endif
 endfunction
 
-function mzview#rebuild_pdf()
-    if !exists("g:building") || g:building || !&modified
+function mzview#rebuild_pdf(always)
+    if !exists("g:building") || g:building || (!a:always && !&modified)
         return
     endif
     let g:building = 1
