@@ -26,8 +26,6 @@ command! -nargs=? -bang SpawnViewer call mzview#spawn_viewer(<args>, <bang>0)
 command! RebuildPDF call mzview#rebuild_pdf(1)
 command! UpdateViewer call mzview#update_viewer()
 
-setlocal updatetime=1000
-
 noremap <Plug>mzview_SynctexForward :SynctexForward<cr>
 noremap <Plug>mzview_RebuildPDF :RebuildPDF<cr>
 noremap <Plug>mzview_UpdateViewer :UpdateViewer<cr>
