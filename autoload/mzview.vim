@@ -46,7 +46,7 @@ function mzview#synctex_forward()
 endfunction
 
 function mzview#synctex_backward(channel, msg)
-    let [tex_line, tex_file] = split(a:msg)
-    execute "find " . tex_file
+    let [tex_line; tex_file] = split(a:msg)
+    execute "find " . join(tex_file)
     execute "normal " . tex_line . "gg"
 endfunction
