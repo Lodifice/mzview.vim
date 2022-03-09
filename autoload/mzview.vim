@@ -14,8 +14,8 @@ function mzview#spawn_viewer(pdf_file, force)
         else
             let g:pdf_file = a:pdf_file
         endif
-        "let g:pdf_viewer = job_start("mupdf " . g:pdf_file)
-        let g:pdf_viewer = job_start("zathura -x \"echo %{line} %{input}\" " . g:pdf_file, {"out_cb": "mzview#synctex_backward"})
+        let viewer_command = zathura#viewer_command()
+        let g:pdf_viewer = job_start(viewer_command, {"out_cb": "mzview#synctex_backward"})
         let g:building = 0
     endif
 endfunction
