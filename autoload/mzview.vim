@@ -1,23 +1,44 @@
 function mzview#find_pdf()
     let pdf_files = split(globpath(&l:path, "*.pdf"), "\n")
-    if len(pdf_files) != 1
-        echoerr "There are " . len(pdf_files) . " PDF files in the path."
+    if len(pdf_files) == 0
+        echoerr "There are 0 PDF files in the path, please specify one."
         return
     endif
-    return pdf_files[0]
+    let found = -1
+    " TODO
+    " change to > 1 and switch order of then/else
+    " go crazy
+    if len(pdf_files) == 1
+        let found = 0
+    else
+        let candidate = substitute(bufname('%'), "\.tex", ".pdf", "")
+        for i in range(len(pdf_files))
+            if candidate ==# pdf_files[i]
+                echom "There are " . len(pdf_files) . " PDF files in the path, guessing " . pdf_files[i] . " based on the name of the current buffer."
+                let found = i
+                break
+            endif
+        endfor
+        if found < 0
+            echoerr "There are " . len(pdf_files) . " PDF files in the path and I can't figure out which one you want, please specify one."
+        return
+    endif
+    return pdf_files[found]
 endfunction
 
 function mzview#spawn_viewer(pdf_file, force)
-    if !exists("g:pdf_viewer") || a:force
-        if empty(a:pdf_file)
-            let g:pdf_file = mzview#find_pdf()
-        else
-            let g:pdf_file = a:pdf_file
-        endif
-        let viewer_command = zathura#viewer_command()
-        let g:pdf_viewer = job_start(viewer_command, {"out_cb": "mzview#synctex_backward"})
-        let g:building = 0
+    if exists("g:pdf_viewer") && !a:force
+        echoerr "Viewer already spawned for " . g:pdf_viewer . ", use SpawnViewer! to override."
+        return
     endif
+    if empty(a:pdf_file)
+        let g:pdf_file = mzview#find_pdf()
+    else
+        let g:pdf_file = a:pdf_file
+    endif
+    let viewer_command = zathura#viewer_command()
+    let g:pdf_viewer = job_start(viewer_command, {"out_cb": "mzview#synctex_backward"})
+    let g:building = 0
 endfunction
 
 function mzview#update_viewer()

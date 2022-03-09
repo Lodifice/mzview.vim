@@ -23,10 +23,11 @@ augroup buildonwrite
 augroup END
 
 command! SynctexForward call mzview#synctex_forward()
-command! -nargs=? -bang SpawnViewer call mzview#spawn_viewer(<args>, <bang>0)
+command! -nargs=? -bang -complete=file_in_path SpawnViewer call mzview#spawn_viewer(<q-args>, <bang>0)
 command! RebuildPDF call mzview#rebuild_pdf(1)
 command! UpdateViewer call mzview#update_viewer()
 
 noremap <Plug>mzview_SynctexForward :SynctexForward<cr>
+noremap <Plug>mzview_SpawnViewer :SpawnViewer<cr>
 noremap <Plug>mzview_RebuildPDF :RebuildPDF<cr>
 noremap <Plug>mzview_UpdateViewer :UpdateViewer<cr>
