@@ -27,14 +27,20 @@ function mzview#find_pdf()
 endfunction
 
 function mzview#spawn_viewer(pdf_file, force)
-    if exists("g:pdf_viewer") && !a:force
-        echoerr "Viewer already spawned for " . g:pdf_viewer . ", use SpawnViewer! to override."
-        return
+    if exists("g:pdf_viewer")
+        if job_info(g:pdf_viewer)["status"] !=# "dead"
+            echoerr "Viewer already spawned for " . g:pdf_file . ", close it first."
+            return
+        endif
     endif
-    if empty(a:pdf_file)
-        let g:pdf_file = mzview#find_pdf()
+    if exists("g:pdf_file") && !a:force
+        echom "Respawning viewer for " . g:pdf_file . ", use SpawnViewer! to override."
     else
-        let g:pdf_file = a:pdf_file
+        if empty(a:pdf_file)
+            let g:pdf_file = mzview#find_pdf()
+        else
+            let g:pdf_file = a:pdf_file
+        endif
     endif
     let viewer_command = zathura#viewer_command()
     let g:pdf_viewer = job_start(viewer_command, {"out_cb": "mzview#synctex_backward"})
