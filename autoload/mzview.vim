@@ -38,6 +38,10 @@ function mzview#spawn_viewer(pdf_file, force)
     else
         if empty(a:pdf_file)
             let g:pdf_file = mzview#find_pdf()
+            if g:pdf_file == "0"
+                unlet g:pdf_file
+                return
+            endif
         else
             let g:pdf_file = a:pdf_file
         endif
