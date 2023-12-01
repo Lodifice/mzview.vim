@@ -72,11 +72,14 @@ function mzview#handle_rebuild(job, status)
 endfunction
 
 function mzview#synctex_forward()
-    execute "silent !zathura --synctex-forward " . line('.') . ":" . col('.') . ":" . bufname('%') . " " . g:pdf_file
-    redraw!
+    call zathura#synctex_forward()
 endfunction
 
 function mzview#synctex_backward(channel, msg)
+    " because sioyek is a spammer
+    if a:msg !~ '\m^\d\+ /.\+$'
+        return
+    endif
     let [tex_line; tex_file] = split(a:msg)
     execute "find " . join(tex_file)
     execute "normal " . tex_line . "gg"
