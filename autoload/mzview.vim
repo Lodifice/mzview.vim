@@ -1,5 +1,9 @@
 function mzview#find_pdf()
-    let pdf_files = split(globpath(&l:path, "*.pdf"), "\n")
+    let path = &l:path
+    if len(path) == 0
+        let path = &path
+    endif
+    let pdf_files = split(globpath(path, "*.pdf"), "\n")
     if len(pdf_files) == 0
         echoerr "There are 0 PDF files in the path, please specify one."
         return
